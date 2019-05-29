@@ -64,3 +64,4 @@ questioning.
 Start the player in the middle of the mansion. List the rooms the player can enter into. 
 Some rooms will be locked - the player will need a key.
 Each room will have an item hidden.
+There will be lots of interactable objects the user will need to look at. Having more clues unlocks new speech options. 
