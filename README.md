@@ -1,2 +1,2 @@
 # AdventureGameProfPrac
-Adventures like no other
+Cludeo-eque murder mystery game set inside a mansion. 
