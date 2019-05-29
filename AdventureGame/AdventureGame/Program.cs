@@ -13,8 +13,14 @@ namespace AdventureGame
             public string murderer;
             public string murderWeapon;
             public string murderRoom;
+            public string[] inventory;
         }
 
+        public struct Commands
+        {
+            public string USE;
+
+        }
 
         public static void Start()
         {
@@ -23,15 +29,15 @@ namespace AdventureGame
             Murderer[] MurderCards = new Murderer[1];
 
             string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Alfred Gray" };
-            string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Rope", "Spanner", "Poison" };
-            string[] roomArray = { "Kitchen", "Ballroom", "Conservatory", "Billiard Room", "Library", "Cellar", "Dining Room", "Lounge", "Hall", "Study" };
+            string[] weaponArray  = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Rope", "Spanner", "Poison" };
+            string[] roomArray    = { "Kitchen", "Ballroom", "Conservatory", "Billiard Room", "Library", "Cellar", "Dining Room", "Lounge", "Hall", "Study" };
 
             //Initilising the cards used in the murder
             for (int i = 0; i < MurderCards.Length; i++)
             {
-                MurderCards[i].murderer = suspectArray[rand.Next(0, 5)];
+                MurderCards[i].murderer     = suspectArray[rand.Next(0, 5)];
                 MurderCards[i].murderWeapon = weaponArray[rand.Next(0, 6)];
-                MurderCards[i].murderRoom = roomArray[rand.Next(0, 9)];
+                MurderCards[i].murderRoom   = roomArray[rand.Next(0, 9)];
             }
             Console.ReadLine();
 

@@ -53,9 +53,9 @@ Need to find out if the user wants to guess.
 Story:
 
 The buzz of your cellphone interrupts a friendly game of croquchet. The sun beams through the tall pine trees, a sweet smell in the air.
-As chief police investigator a murder scene isn't unknown to you. Will you discover the murderer? Or will they escape your grasp?
+As chief police investigator, a murder scene isn't unknown to you. Will you discover the murderer? Or will they escape your grasp?
 
-Arriving on the police cordoned scene you discover six suspects and a large masion. The dirty marble pillars outside hold the pearly white
+Arriving on the police cordoned scene you discover six suspects and a large mansion. The dirty marble pillars outside hold the pearly white
 roof up. You escort the suspects into the cellar in the middle of the mansion, down the stairs and onto a old wooden bench. You begin the
 questioning.
 
