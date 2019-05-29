@@ -1,0 +1,66 @@
+Group Task:
+
+Using GitHub
+
+Ideas: Cluedo, horror
+
+Command Line Any Genre Game
+
+Research Conventions
+- show research for presentation
+
+Must be classroom appropriate
+
+Multiple "Rooms" navigatable in non linear fashion
+
+items that can be used, looked at or manipulated
+
+an inventory - limited inventory
+
+decisions made affects future plot
+
+Quirks: 
+Maze
+Backtrack ability
+save progress. game over. method to save and wipe save files.
+
+DO BIT BY BIT
+
+commands: use item
+entering a room lists everything in it
+
+Cinematics?
+
+Pseudo Code
+
+Main Menu:
+
+Play Game
+Load Game - SR Reader
+Exit Game
+
+
+
+After clicking play generate a random murderer, murder weapon, murder room. 
+Player rolls up at house. 6 suspects, 1 victim. 
+Given a chance to talk to suspects.
+Then choose a room. (some could be locked, need to find a key).
+
+Each room will have items to investigate. These will be added to the players inventory where they can be inspected to give hints.
+
+Need to find out if the user wants to guess. 
+
+Story:
+
+The buzz of your cellphone interrupts a friendly game of croquchet. The sun beams through the tall pine trees, a sweet smell in the air.
+As chief police investigator a murder scene isn't unknown to you. Will you discover the murderer? Or will they escape your grasp?
+
+Arriving on the police cordoned scene you discover six suspects and a large masion. The dirty marble pillars outside hold the pearly white
+roof up. You escort the suspects into the cellar in the middle of the mansion, down the stairs and onto a old wooden bench. You begin the
+questioning.
+
+[Insert first attempts at questioning, no chance to accuse anyone yet]
+
+Start the player in the middle of the mansion. List the rooms the player can enter into. 
+Some rooms will be locked - the player will need a key.
+Each room will have an item hidden.
