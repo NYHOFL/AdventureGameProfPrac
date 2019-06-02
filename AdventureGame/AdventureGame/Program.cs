@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+using System.IO;
 
 namespace AdventureGame
 {
@@ -36,10 +37,23 @@ namespace AdventureGame
             Console.ReadLine();
 
         }
+        public static void Game()
+        {
+            Console.WriteLine("The buzz of your cellphone interrupts a friendly game of croquchet. The sun beams through the tall pine trees, a sweet smell in the air. As chief police investigator a murder scene isn't unknown to you.");
+            Thread.Sleep(2000);
+            Console.WriteLine("Will you discover the murderer? Or will they escape your grasp?");
+            Thread.Sleep(2000);
+            Console.WriteLine("Loading...");
+            Thread.Sleep(4000);
+            Console.Clear();
+            Console.WriteLine(" Arriving on the police cordoned scene you discover six suspects and a large masion.The dirty marble pillars outside hold the pearly white roof up.You escort the suspects into the cellar in the middle of the mansion, down the stairs and onto a old wooden bench.You begin thequestioning.");
+
+        }
 
         static void Main()
         {
             Start();
+            Game();
         }
     }
 }
