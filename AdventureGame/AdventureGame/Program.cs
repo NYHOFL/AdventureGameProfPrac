@@ -95,15 +95,16 @@ namespace AdventureGame
 
         public static void Kitchen()
         {
-            
+
+
+            Console.WriteLine("You enter the kitchen. It is a large modern room with lots of pots and pans hanging from the ceiling.");
+
         }
 
         public static void Ballroom()
         {
 
-
         }
-
         public static void Conservatory()
         {
 
@@ -124,17 +125,18 @@ namespace AdventureGame
 
         public static void DiningRoom()
         {
+
         }
 
         public static void Lounge()
         {
 
         }
-            public static void Hall()
+        public static void Hall()
         {
 
         }
-            public static void Study()
+        public static void Study()
         {
 
         }
