@@ -83,46 +83,61 @@ namespace AdventureGame
         {
             //need to check if this is the murder victim room
             //if it is, have it talk about a bloodied body in the corner
+
+            Console.WriteLine("You enter the kitchen. It is a large modern room with lots of pots and pans hanging from the ceiling.");
+            //Console.WriteLine(); list what is in the kitchen, probably the knife.
+            //Ask the user what they want to investigate, such as a cupboard, the knives, sink, oven. 
+
         }
 
         public static void Ballroom()
         {
-
+            //need to check if this is the murder victim room
+            //if it is, have it talk about a bloodied body in the corner
         }
 
         public static void Conservatory()
         {
-
+            //need to check if this is the murder victim room
+            //if it is, have it talk about a bloodied body in the corner
         }
         public static void BilliardRoom()
         {
-
+            //need to check if this is the murder victim room
+            //if it is, have it talk about a bloodied body in the corner
         }
         public static void Library()
         {
-
+            //need to check if this is the murder victim room
+            //if it is, have it talk about a bloodied body in the corner
         }
 
         public static void Cellar()
         {
-
+            //need to check if this is the murder victim room
+            //if it is, have it talk about a bloodied body in the corner
         }
 
         public static void DiningRoom()
         {
+            //need to check if this is the murder victim room
+            //if it is, have it talk about a bloodied body in the corner
         }
 
         public static void Lounge()
         {
-
+            //need to check if this is the murder victim room
+            //if it is, have it talk about a bloodied body in the corner
         }
-            public static void Hall()
+        public static void Hall()
         {
-
+            //need to check if this is the murder victim room
+            //if it is, have it talk about a bloodied body in the corner
         }
-            public static void Study()
+        public static void Study()
         {
-
+                        //need to check if this is the murder victim room
+            //if it is, have it talk about a bloodied body in the corner
         }
 
 
