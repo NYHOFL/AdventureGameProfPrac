@@ -9,7 +9,7 @@ namespace AdventureGame
 {
     class Program
     {
-        public struct Murderer
+        public struct MurderItems
         {
             public string murderer;
             public string murderWeapon;
@@ -31,122 +31,54 @@ namespace AdventureGame
 
         }
 
-        public static void Start()
+        static void Main()
+        {
+            userInput();
+        }
+        public static void InitVariables()
         {
             //Setting up variables and arrays
             Random rand = new Random();
-            Murderer[] MurderCards = new Murderer[1];
+            MurderItems[] MurderCards = new MurderItems[1];
 
             string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Alfred Gray" };
-            string[] weaponArray  = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Rope", "Spanner", "Poison" };
-            string[] roomArray    = { "Kitchen", "Ballroom", "Conservatory", "Billiard Room", "Library", "Cellar", "Dining Room", "Lounge", "Hall", "Study" };
+            string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Rope", "Spanner", "Poison" };
+            string[] roomArray = { "Kitchen", "Ballroom", "Conservatory", "Billiard Room", "Library", "Cellar", "Dining Room", "Lounge", "Hall", "Study" };
 
             //Initilising the cards used in the murder
             for (int i = 0; i < MurderCards.Length; i++)
             {
-                MurderCards[i].murderer     = suspectArray[rand.Next(0, 5)];
+                MurderCards[i].murderer = suspectArray[rand.Next(0, 5)];
                 MurderCards[i].murderWeapon = weaponArray[rand.Next(0, 6)];
-                MurderCards[i].murderRoom   = roomArray[rand.Next(0, 9)];
+                MurderCards[i].murderRoom = roomArray[rand.Next(0, 9)];
             }
-
         }
-        public static void Game()
+        public static void userInput()
         {
-            string temp;
-
-            Console.WriteLine($"The buzz of your cellphone interrupts a friendly game of croquchet. The sun beams through the tall pine trees, a sweet smell in the air. As chief police investigator a murder scene isn't unknown to you.\n");
-            Thread.Sleep(2000);
-            Console.WriteLine("Press enter to continue");
-            Console.ReadLine();
-            Console.Clear();
-
-            Console.WriteLine($"Will you discover the murderer? Or will they escape your grasp? \n");
-            Thread.Sleep(2000);
-            Console.WriteLine("Press enter to continue");
-            Console.ReadLine();
-            Console.Clear();
-
-            Console.WriteLine();
-            Console.WriteLine("Loading...");
-            Thread.Sleep(4000);
-            Console.Clear();
-
-            Console.WriteLine("Arriving on the police cordoned scene you discover six suspects and a large masion.The dirty marble pillars outside hold the pearly white roof up.You escort the suspects into the cellar in the middle of the mansion, down the stairs and onto a old wooden bench.You begin thequestioning.");
-            Thread.Sleep(2000);
-            Console.ReadLine();
-
-            Console.Clear();
-
-            Console.WriteLine("Interact or leave"); // this is the first menu that will ask the player what they want to do 
-            temp = Console.ReadLine();
-            // if interact, go to a list of the suspects. if leave, exit to the mansion.
-            
-            //switch
-                //different rooms you can go to
-
-            
+            bool loop = true;
+            while (loop == true)
+            {
+                string userInput = Console.ReadLine();
+                string[] userArray = userInput.Split(' ');
+                int count = 0;
+                foreach (string item in userArray)
+                {
+                    count++;
+                }
+                if (userArray.Contains("GoTo"))
+                {
+                    MovingRoom(userArray);
+                }
+            }
         }
-
-
-        //Need to check if the door is unlocked
-        //Need to check if the character has they key for the room
-        //need to check if this is the murder victim room
-        //if it is, have it talk about a bloodied body in the corner
-
-        public static void Kitchen()
+        public static void MovingRoom(string[] userArray)
         {
-
-
-            Console.WriteLine("You enter the kitchen. It is a large modern room with lots of pots and pans hanging from the ceiling.");
-
+            if (userArray.Contains("Ballroom"))
+            {
+                Console.WriteLine("Ballroom");
+                Console.ReadLine();
+            }
         }
 
-        public static void Ballroom()
-        {
-
-        }
-        public static void Conservatory()
-        {
-
-        }
-        public static void BilliardRoom()
-        {
-
-        }
-        public static void Library()
-        {
-
-        }
-
-        public static void Cellar()
-        {
-
-        }
-
-        public static void DiningRoom()
-        {
-
-        }
-
-        public static void Lounge()
-        {
-
-        }
-        public static void Hall()
-        {
-
-        }
-        public static void Study()
-        {
-
-        }
-
-
-
-        public static void Main()
-        {
-            Start();
-            Game();
-        }
     }
 }
