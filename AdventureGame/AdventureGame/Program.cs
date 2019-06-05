@@ -43,7 +43,7 @@ namespace AdventureGame
 
             string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Alfred Gray" };
             string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Rope", "Spanner", "Poison" };
-            string[] roomArray = { "Kitchen", "Ballroom", "Conservatory", "Billiard Room", "Library", "Cellar", "Dining Room", "Lounge", "Hall", "Study" };
+            string[] roomArray = { "Kitchen", "Ballroom", "Billiard Room", "Library", "Cellar", "Dining Room", "Lounge", "Hall", "Study" };
 
             //Initilising the cards used in the murder
             for (int i = 0; i < MurderCards.Length; i++)
@@ -78,7 +78,7 @@ namespace AdventureGame
                 Console.WriteLine("Ballroom");
                 Console.ReadLine();
             }
-            if (userArray.Contains("Conservatory"))
+            if (userArray.Contains("Dining Room"))
             {
                 Console.WriteLine("You enter a Conservatory, You are dissappointed");
                 Console.ReadLine();
