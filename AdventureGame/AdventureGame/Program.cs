@@ -24,7 +24,7 @@ namespace AdventureGame
             public string OPEN; //Open doors
             public string INVENTORY; //Used for looking at inventory
             public string WALK;   //Walking to rooms e.g WALK study
-            public string ASK;    //Used for asking NPC characters
+            public string ASK;    //Used for asking NPCs
             public string EXAMINE;//Examine items like the body 
             public string TAKE;   //Command used for taking items such as keys
             public string GUESS;  //Murderer first, weapon, and then room.
@@ -76,6 +76,16 @@ namespace AdventureGame
             if (userArray.Contains("Ballroom"))
             {
                 Console.WriteLine("Ballroom");
+                Console.ReadLine();
+            }
+            if (userArray.Contains("Conservatory"))
+            {
+                Console.WriteLine("You enter a Conservatory, You are dissappointed");
+                Console.ReadLine();
+            }
+            if (userArray.Contains("Billiard Room"))
+            {
+                Console.WriteLine("The Billiard Room smells like chalk");
                 Console.ReadLine();
             }
         }
