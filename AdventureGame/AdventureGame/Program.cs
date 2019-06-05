@@ -17,9 +17,17 @@ namespace AdventureGame
             public string[] inventory;
         }
 
+        //List of commands going to be used.
         public struct Commands
         {
-            public string USE;
+            public string USE; //Use certain items
+            public string OPEN; //Open doors
+            public string INVENTORY; //Used for looking at inventory
+            public string WALK;   //Walking to rooms e.g WALK study
+            public string ASK;    //Used for asking NPC characters
+            public string EXAMINE;//Examine items like the body 
+            public string TAKE;   //Command used for taking items such as keys
+            public string GUESS;  //Murderer first, weapon, and then room.
 
         }
 
