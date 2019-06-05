@@ -29,19 +29,17 @@ namespace AdventureGame
         //    public string TAKE;      //Command used for taking items such as keys
         //    public string GUESS;     //Murderer first, weapon, and then room.
 
-        //}
+
 
         public static void Main()
         {
             //Setting up variables and arrays
             Random rand = new Random();
             MurderItems[] MurderCards = new MurderItems[1];
-
             string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Alfred Gray" };
             string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Suzuki Swift", "Spanner", "Poison" };
             string[] roomArray = { "Kitchen", "Ballroom", "Billiard Room", "Library", "Cellar", "Dining Room", "Hall", "Study" };
 
-            //Initilising the cards used in the murder
             for (int i = 0; i < MurderCards.Length; i++)
             {
                 MurderCards[i].murderer = suspectArray[rand.Next(0, 5)];
@@ -76,15 +74,28 @@ namespace AdventureGame
                 Console.WriteLine("Ballroom");
                 Console.ReadLine();
             }
+
             if (userArray.Contains("Cellar"))
             {
                 Guessing(MurderCards);
-            }
+
+                if (userArray.Contains("Dining Room"))
+                {
+                    Console.WriteLine("You enter a Conservatory, You are dissappointed");
+                    Console.ReadLine();
+                }
+                if (userArray.Contains("Billiard Room"))
+                {
+                    Console.WriteLine("The Billiard Room smells like chalk");
+                    Console.ReadLine();
+
+                }
+            }        
         }
 
         public static void Guessing(MurderItems[] MurderCards)
         {
-            int points =0;
+            int points = 0;
             Console.Write("Please enter who you think the murderer was: ");
             string userGuess = Console.ReadLine();
             if (MurderCards[0].murderer == userGuess)
@@ -104,7 +115,7 @@ namespace AdventureGame
                 points++;
             }
 
-            if(points == 3)
+            if (points == 3)
             {
                 Console.WriteLine("You win, you figured out who the murderer was!");
                 Console.ReadLine();
