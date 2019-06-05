@@ -73,9 +73,61 @@ namespace AdventureGame
             temp = Console.ReadLine();
             // if interact, go to a list of the suspects. if leave, exit to the mansion.
             
+            //switch
+                //different rooms you can go to
+
+            
         }
 
-        static void Main()
+        public static void Kitchen()
+        {
+            //need to check if this is the murder victim room
+            //if it is, have it talk about a bloodied body in the corner
+        }
+
+        public static void Ballroom()
+        {
+
+        }
+
+        public static void Conservatory()
+        {
+
+        }
+        public static void BilliardRoom()
+        {
+
+        }
+        public static void Library()
+        {
+
+        }
+
+        public static void Cellar()
+        {
+
+        }
+
+        public static void DiningRoom()
+        {
+        }
+
+        public static void Lounge()
+        {
+
+        }
+            public static void Hall()
+        {
+
+        }
+            public static void Study()
+        {
+
+        }
+
+
+
+        public static void Main()
         {
             Start();
             Game();
