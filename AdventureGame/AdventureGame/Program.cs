@@ -87,14 +87,20 @@ namespace AdventureGame
             
         }
 
+
+        //Need to check if the door is unlocked
+        //Need to check if the character has they key for the room
+        //need to check if this is the murder victim room
+        //if it is, have it talk about a bloodied body in the corner
+
         public static void Kitchen()
         {
-            //need to check if this is the murder victim room
-            //if it is, have it talk about a bloodied body in the corner
+            
         }
 
         public static void Ballroom()
         {
+
 
         }
 
