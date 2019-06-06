@@ -65,7 +65,7 @@ namespace AdventureGame
             {
                 Console.Write("Please enter what you want to do: ");
                 Console.ForegroundColor = ConsoleColor.Green;
-                string userInput = Console.ReadLine();
+                string userInput = Console.ReadLine().ToLower();
                 Console.ForegroundColor = ConsoleColor.White;
                 string[] userArray = userInput.Split(' ');
 
@@ -89,8 +89,8 @@ namespace AdventureGame
                 else if (userArray[0] == "exit")
                 {
                     Console.WriteLine("You failed to solve the case. You disgrace your academy and are sent back in shame.");
-                    Console.ReadLine();
-                    Environment.Exit(0);
+                    Thread.Sleep(2000);
+                    loop = false;
                 }
 
                 //Ask command
@@ -112,7 +112,7 @@ namespace AdventureGame
         {
             Console.WriteLine(currentRoom);
             Console.ReadLine();
-            if(currentRoom == "Dining")
+            if(currentRoom == "dining")
             {
                 if (userArray.Contains("happened"))
                 {
@@ -133,7 +133,7 @@ namespace AdventureGame
         public static void MovingRoom(string[] userArray, MurderItems[] MurderCards, string[] Inventory, string[] InnocentCharacter, string currentRoom)
         {
 
-            if (userArray.Contains("Kitchen"))
+            if (userArray.Contains("kitchen"))
             {
                 Console.Clear();
                 Console.WriteLine("Kitchen");
@@ -146,7 +146,7 @@ namespace AdventureGame
 
 
                 //Entering ballroom - Not murder room
-                if ((userArray.Contains("Ballroom")) && (Inventory[0] == "Ballroom Key"))
+                if ((userArray.Contains("ballroom")) && (Inventory[0] == "Ballroom Key"))
                 {
                     Console.WriteLine("You have the Ballroom key, collected from one of the suspects.");
                     if (MurderCards[0].murderRoom == "Ballroom")
@@ -162,7 +162,7 @@ namespace AdventureGame
                 }
 
                 //Entering Dining Room - Not murder room
-                else if (userArray.Contains("Dining"))
+                else if (userArray.Contains("dining"))
                 {
                     currentRoom = "Dining";
                     if (MurderCards[0].murderRoom == "Dining")
