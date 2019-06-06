@@ -16,44 +16,45 @@ namespace AdventureGame
             public string murderRoom;
         }
 
-        //List of commands going to be used.
-        public struct PlayerInventory
-        {
-            public string Slot1;
-            public string Slot2;
-            public string Slot3;
-            public string Slot4;
-            public string Slot5;
-        }
         public static void Main()
         {
-            
             //Setting up variables and arrays
+            string[] Inventory = {"Empty","Empty","Empty","Empty","Empty"};
             Random rand = new Random();
             MurderItems[] MurderCards = new MurderItems[1];
+            string currentRoom = "Outside";
+            string[] InnocentCharacter = new string[6];
             string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Alfred Gray" };
             string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Suzuki Swift", "Spanner", "Poison" };
-            string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library",  "Dining", "Hall", "Study" };
+            string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library", "Dining", "Hall", "Study" };
 
+            //Randomising the murderer, weapon and room
             for (int i = 0; i < MurderCards.Length; i++)
             {
                 MurderCards[i].murderer = suspectArray[rand.Next(0, 5)];
                 MurderCards[i].murderWeapon = weaponArray[rand.Next(0, 5)];
                 MurderCards[i].murderRoom = roomArray[rand.Next(0, 5)];
             }
-            userInput(MurderCards);
+
+            //error checking for establishing NPCS that are not the murderer
+            Console.WriteLine("Murderer: "+MurderCards[0].murderer);
+            for (int i = 0; i <= 5; i++)
+            {
+                bool loop = true;
+                while(loop == true) { 
+                    if (suspectArray[i] != MurderCards[0].murderer)
+                    {
+                        InnocentCharacter[i] = suspectArray[i];
+                        Console.WriteLine("Innocent: "+InnocentCharacter[i]);
+                    }
+                    loop = false;
+                }
+            }
+            userInput(MurderCards, Inventory, InnocentCharacter, currentRoom);
         }
 
-        public static void userInput(MurderItems[] MurderCards)
+        public static void userInput(MurderItems[] MurderCards, string[] Inventory, string[] InnocentCharacter, string currentRoom)
         {
-            PlayerInventory[] Inventory = new PlayerInventory[1];
-            Inventory[0].Slot1 = "Empty";
-            Inventory[0].Slot2 = "Empty";
-            Inventory[0].Slot3 = "Empty";
-            Inventory[0].Slot4 = "Empty";
-            Inventory[0].Slot5 = "Empty";
-
-
             Console.WriteLine(MurderCards[0].murderRoom);
             bool loop = true;
             while (loop == true)
@@ -61,24 +62,23 @@ namespace AdventureGame
                 Console.Write("Please enter what you want to do: ");
                 Console.ForegroundColor = ConsoleColor.Green;
                 string userInput = Console.ReadLine();
-                Console.WriteLine("***************************************************************************************");
                 Console.ForegroundColor = ConsoleColor.White;
                 string[] userArray = userInput.Split(' ');
 
                 //GoTo Command
                 if (userArray[0] == "goto")
                 {
-                    MovingRoom(userArray, MurderCards, Inventory);
+                    MovingRoom(userArray, MurderCards, Inventory, InnocentCharacter, currentRoom);
                 }
 
                 //Inventory Command
                 else if (userArray[0] == "inventory")
                 {
-                    Console.WriteLine(Inventory[0].Slot1);
-                    Console.WriteLine(Inventory[0].Slot2);
-                    Console.WriteLine(Inventory[0].Slot3);
-                    Console.WriteLine(Inventory[0].Slot4);
-                    Console.WriteLine(Inventory[0].Slot5);
+                    for (int i = 0; i < Inventory.Length; i++)
+                    {
+                        Console.WriteLine("Slot "+i+": "+Inventory[i]); 
+                    }
+                    
                 }
 
                 //Exit Command
@@ -87,7 +87,12 @@ namespace AdventureGame
                     Console.WriteLine("You failed to solve the case. You disgrace your academy and are sent back in shame.");
                     Console.ReadLine();
                     Environment.Exit(0);
-                    
+                }
+
+                //Ask command
+                else if (userArray[0] == "ask")
+                {
+                    Asking(MurderCards, Inventory, InnocentCharacter, currentRoom, userArray);
                 }
 
                 //Error Checking
@@ -95,28 +100,53 @@ namespace AdventureGame
                 {
                     Console.Write("Unknown command, please try again: ");
                 }
+
+                
             }
         }
-        public static void MovingRoom(string[] userArray, MurderItems[] MurderCards, PlayerInventory[] Inventory)
+        public static void Asking(MurderItems[] MurderCards, string[] Inventory, string[] InnocentCharacter, string currentRoom, string[] userArray)
+        {
+            Console.WriteLine(currentRoom);
+            Console.ReadLine();
+            if(currentRoom == "Dining")
+            {
+                if (userArray.Contains("happened"))
+                {
+                    Console.WriteLine("I don't know what happened.");
+                }
+                else if ((userArray.Contains("ballroom"))&&(userArray.Contains("key")))
+                {
+                    Console.WriteLine("Yes I do, please take it.");
+
+                }
+                else
+                {
+                    Console.WriteLine($"{InnocentCharacter[0]} is confused by that sentence and asks you to repeat it.");
+                }
+            }
+        }
+
+        public static void MovingRoom(string[] userArray, MurderItems[] MurderCards, string[] Inventory, string[] InnocentCharacter,string currentRoom)
         {
             //Entering ballroom - Not murder room
-            if ((userArray.Contains("Ballroom"))&&((Inventory[0].Slot1 == "Ballroom Key")||(Inventory[0].Slot2 == "Ballroom Key") || (Inventory[0].Slot3 == "Ballroom Key") || (Inventory[0].Slot4 == "Ballroom Key") || (Inventory[0].Slot5 == "Ballroom Key")))
+            if ((userArray.Contains("Ballroom")) && (Inventory[0] == "Ballroom Key"))
             {
                 Console.WriteLine("You have the Ballroom key, collected from one of the suspects.");
-                if(MurderCards[0].murderRoom == "Ballroom")
+                if (MurderCards[0].murderRoom == "Ballroom")
                 {
                     Console.WriteLine("You enter the room where the murdered suspect lies");
                 }
-                else { 
-                Console.WriteLine("You enter the ballroom, the room echos with the conversations of distraught guests. No body can be seen.");
+                else
+                {
+                    Console.WriteLine("You enter the ballroom, the room echos with the conversations of distraught guests. No body can be seen.");
                 }
                 Console.ReadLine();
             }
-            
+
             //Entering Dining Room - Not murder room
             else if (userArray.Contains("Dining"))
             {
-               
+                currentRoom = "Dining";
                 if (MurderCards[0].murderRoom == "Dining")
                 {
                     Console.WriteLine("You enter the room where the murdered suspect lies");
@@ -125,54 +155,14 @@ namespace AdventureGame
                 {
                     Console.WriteLine("You enter the Dining room, You are dissappointed. No corpse can be seen");
                 }
-                Console.WriteLine("There is a man standing in the corner, frightened. You ask him if he knows anything. He replies 'I'm Sorry I didn't see anything, but I may of heard something coming from the Ballroom'");
-                Console.WriteLine("You thank him, and he gives you the key to the Ballroom.");
-                Inventory[0].Slot1 = "Ballroom Key";
-            }
-
-            //Entering Billiard Room - Not murder room
-            else if (userArray.Contains("Billiard"))
-            {
-                if (MurderCards[0].murderRoom == "Billiard")
-                {
-                    Console.WriteLine("You enter the room where the murdered suspect lies");
-                }
-                else
-                {
-                    Console.WriteLine("You enter the Billiard room, the room is dimly lit. No body can be seen");
-                }
-
-            }
-
-            //Entering Kitchen Room - Not murder room
-            else if (userArray.Contains("Kitchen"))
-            {
-                if (MurderCards[0].murderRoom == "Kitchen")
-                {
-                    Console.WriteLine("You enter the room where the murdered suspect lies");
-                }
-                else
-                {
-                    Console.WriteLine("You enter the kitchen, the smell of the recently cooked turkey dinner looms in the air. No body can be seen.");
-                }
-                
-                Console.ReadLine();
-
-            }
-
-            //Entering Cellar Room - Guessing Room
-            else if (userArray.Contains("Cellar"))
-            {
-                Console.WriteLine("You enter the Cellar and find the cheif investagator. You interupt his conversation confinatly saying you know how the murder went down. ");
-                Guessing(MurderCards);
-
-            }
-            else
-            {
-                Console.WriteLine("You dont have the key to enter that room");
+                Console.WriteLine($"You enter the dining room, {InnocentCharacter[0]} is standing in the corner, distraught.");
+                Inventory[0] = "Ballroom Key";
             }
         }
 
+
+
+        //This is for when the player is ready to guess.
         public static void Guessing(MurderItems[] MurderCards)
         {
             int points = 0;
