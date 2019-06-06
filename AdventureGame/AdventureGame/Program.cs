@@ -14,24 +14,24 @@ namespace AdventureGame
             public string murderer;
             public string murderWeapon;
             public string murderRoom;
-            public string[] inventory;
         }
 
         //List of commands going to be used.
-        //public struct Commands
-        //{
-        //    public string USE;       //Use certain items
-        //    public string OPEN;      //Open doors
-        //    public string INVENTORY; //Used for looking at inventory
-        //    public string WALK;      //Walking to rooms e.g WALK study
-        //    public string ASK;       //Used for asking NPC characters
-        //    public string EXAMINE;   //Examine items like the body 
-        //    public string TAKE;      //Command used for taking items such as keys
-        //    public string GUESS;     //Murderer first, weapon, and then room.
+        public struct Commands
+        {
+            public string USE;       //Use certain items
+            public string OPEN;      //Open doors
+            public string INVENTORY; //Used for looking at inventory
+            public string GOTO;      //Walking to rooms e.g WALK study
+            public string ASK;       //Used for asking NPC characters
+            public string EXAMINE;   //Examine items like the body 
+            public string TAKE;      //Command used for taking items such as keys
+            public string GUESS;     //Murderer first, weapon, and then room.
+        }
 
 
 
-        public static void Main()
+            public static void Main()
         {
             //Setting up variables and arrays
             Random rand = new Random();
@@ -43,14 +43,24 @@ namespace AdventureGame
             for (int i = 0; i < MurderCards.Length; i++)
             {
                 MurderCards[i].murderer = suspectArray[rand.Next(0, 5)];
-                MurderCards[i].murderWeapon = weaponArray[rand.Next(0, 6)];
-                MurderCards[i].murderRoom = roomArray[rand.Next(0, 9)];
+                MurderCards[i].murderWeapon = weaponArray[rand.Next(0, 5)];
+                MurderCards[i].murderRoom = roomArray[rand.Next(0, 5)];
             }
             userInput(MurderCards);
         }
 
         public static void userInput(MurderItems[] MurderCards)
         {
+            //Setting up commands
+            Commands[] command = new Commands[1];
+            command[0].ASK = "ask";
+            command[0].EXAMINE = "examine";
+            command[0].GUESS = "guess";
+            command[0].INVENTORY = "inventory";
+            command[0].OPEN = "open";
+            command[0].GOTO = "goto";
+
+
             bool loop = true;
             while (loop == true)
             {
@@ -61,9 +71,13 @@ namespace AdventureGame
                 {
                     count++;
                 }
-                if (userArray.Contains("GoTo"))
+                if (userArray[0] == "goto")
                 {
                     MovingRoom(userArray, MurderCards);
+                }
+                if (userArray[0] == "exit")
+                {
+                    Environment.Exit(0);
                 }
             }
         }
@@ -75,21 +89,22 @@ namespace AdventureGame
                 Console.ReadLine();
             }
 
-            if (userArray.Contains("Cellar"))
-            {
-                Guessing(MurderCards);
-
-                if (userArray.Contains("Dining Room"))
+            
+                if (userArray.Contains("Dining"))
                 {
                     Console.WriteLine("You enter a Conservatory, You are dissappointed");
                     Console.ReadLine();
                 }
-                if (userArray.Contains("Billiard Room"))
+                if (userArray.Contains("Billiard"))
                 {
                     Console.WriteLine("The Billiard Room smells like chalk");
                     Console.ReadLine();
 
                 }
+            if (userArray.Contains("Cellar"))
+            {
+                Guessing(MurderCards);
+
             }        
         }
 
