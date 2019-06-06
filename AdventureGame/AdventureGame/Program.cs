@@ -73,10 +73,17 @@ namespace AdventureGame
         }
         public static void MovingRoom(string[] userArray)
         {
-            if (userArray.Contains("Ballroom"))
+            if (userArray.Contains("Kitchen"))
             {
-                Console.WriteLine("Ballroom");
-                Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine("Kitchen");
+                Console.WriteLine("Inside the marble topped kitchen you find many stainless steel pots and pans. The sink is overflowing with dishes from last nights meal.");
+                Console.WriteLine("There is a large cupboard on the far side of the kitchen. The bench tops are covered in half cleaned cuttlery and cookware.");
+                Console.WriteLine("What would you like to do?");
+                Console.WriteLine("");
+                //if examine, mention the cupboard again, cuttlery, sinks, bench tops. 
+                //if goto, 
+
             }
         }
 
