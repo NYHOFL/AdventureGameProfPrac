@@ -16,55 +16,14 @@ namespace AdventureGame
             public string murderRoom;
         }
 
-        public static void Main()
-        {
-            //Setting up variables and arrays
-            string[] Inventory = { "Empty", "Empty", "Empty", "Empty", "Empty" };
-            Random rand = new Random();
-            MurderItems[] MurderCards = new MurderItems[1];
-            string currentRoom = "Outside";
-            string[] InnocentCharacter = new string[6];
-            string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Alfred Gray", "Anthony Mellon" };
-            string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Spanner", "Poison" };
-            string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library", "Dining", "Hall", "Study" };
 
-            //Randomising the murderer, weapon and room
-            for (int i = 0; i < MurderCards.Length; i++)
-            {
-                MurderCards[i].murderer = suspectArray[rand.Next(0, 5)];
-                MurderCards[i].murderWeapon = weaponArray[rand.Next(0, 5)];
-                MurderCards[i].murderRoom = roomArray[rand.Next(0, 5)];
-                if (MurderCards[i].murderer == "Anthony Mellon")
-                {
-                    MurderCards[i].murderWeapon = "2015 Suzuki Swift";
-                }
-            }
-
-            //error checking for establishing NPCS that are not the murderer
-            Console.WriteLine("Murderer: " + MurderCards[0].murderer);
-            for (int i = 0; i <= 5; i++)
-            {
-                bool loop = true;
-                while (loop == true)
-                {
-                    if (suspectArray[i] != MurderCards[0].murderer)
-                    {
-                        InnocentCharacter[i] = suspectArray[i];
-                        Console.WriteLine("Innocent: " + InnocentCharacter[i]);
-                    }
-                    loop = false;
-                }
-            }
-            userInput(MurderCards, Inventory, InnocentCharacter, currentRoom);
-        }
 
         public static void userInput(MurderItems[] MurderCards, string[] Inventory, string[] InnocentCharacter, string currentRoom)
         {
             int temp;
-            Console.WriteLine(MurderCards[0].murderRoom);
+            Console.WriteLine("Murder Room: " + MurderCards[0].murderRoom);
             bool loop = true;
             while (loop == true)
-            
             {
                 Console.Write("Please enter what you want to do: ");
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -201,16 +160,12 @@ namespace AdventureGame
                 }
                 else
                 {
-                    Console.WriteLine("You enter the Dining room, You are dissappointed. No corpse can be seen");
+                    Console.WriteLine("You enter the Dining room, You are disappointed. No corpse can be seen");
                 }
-                Console.WriteLine($"You enter the dining room, {InnocentCharacter[0]} is standing in the corner, distraught.");
+                //Console.WriteLine($"You enter the dining room, {InnocentCharacter[0]} is standing in the corner, distraught.");
                 Inventory[0] = "Ballroom Key";
             }
         }
-    
-
-
-
 
         //This is for when the player is ready to guess.
         public static void Guessing(MurderItems[] MurderCards)
@@ -248,6 +203,50 @@ namespace AdventureGame
                 Console.WriteLine(MurderCards[0].murderWeapon);
                 Console.ReadLine();
             }
+        }
+        public static void Main()
+        {
+            //Setting up variables and arrays
+            string[] Inventory = { "Empty", "Empty", "Empty", "Empty", "Empty" };
+            Random rand = new Random();
+            MurderItems[] MurderCards = new MurderItems[1];
+            string currentRoom = "Outside";
+            string[] InnocentCharacter = new string[6];
+            string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Alfred Gray", "Anthony Mellon" };
+            string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Spanner", "Poison" };
+            string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library", "Dining", "Hall", "Study" };
+
+            //Randomising the murderer, weapon and room
+            for (int i = 0; i < MurderCards.Length; i++)
+            {
+                MurderCards[i].murderer = suspectArray[rand.Next(0, 5)];
+                MurderCards[i].murderWeapon = weaponArray[rand.Next(0, 5)];
+                MurderCards[i].murderRoom = roomArray[rand.Next(0, 5)];
+                if (MurderCards[i].murderer == "Anthony Mellon")
+                {
+                    MurderCards[i].murderWeapon = "2015 Suzuki Swift";
+                }
+            }
+
+            //error checking for establishing NPCS that are not the murderer
+            Console.WriteLine($"The buzz of your cellphone interrupts a friendly game of croquchet. The sun beams through the tall pine trees, a sweet smell in the air. As chief police investigator, a murder scene isn't unknown to you. Will you discover the murderer? Or will they escape your grasp?");
+            Console.WriteLine($"\nArriving on the police cordoned scene you discover six suspects and a large mansion. The dirty marble pillars outside hold the pearly whiteroof up. You escort the suspects into the cellar in the middle of the mansion, down the stairs and onto a old wooden bench. You begin the questioning.");
+            Console.WriteLine();
+            Console.WriteLine("Murderer: " + MurderCards[0].murderer);
+            /*for (int i = 0; i <= 5; i++)
+            {
+                bool loop = true;
+                while (loop == true)
+                {
+                    if (suspectArray[i] != MurderCards[0].murderer)
+                    {
+                        InnocentCharacter[i] = suspectArray[i];
+                        Console.WriteLine("Innocent: " + InnocentCharacter[i]);
+                    }
+                    loop = false;
+                }
+            } */
+            userInput(MurderCards, Inventory, InnocentCharacter, currentRoom);
         }
     }
 }
