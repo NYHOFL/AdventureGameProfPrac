@@ -17,16 +17,13 @@ namespace AdventureGame
         }
 
         //List of commands going to be used.
-        public struct Commands
+        public struct PlayerInventory
         {
-            public string USE;       //Use certain items
-            public string OPEN;      //Open doors
-            public string INVENTORY; //Used for looking at inventory
-            public string GOTO;      //Walking to rooms e.g WALK study
-            public string ASK;       //Used for asking NPC characters
-            public string EXAMINE;   //Examine items like the body 
-            public string TAKE;      //Command used for taking items such as keys
-            public string GUESS;     //Murderer first, weapon, and then room.
+            public string Slot1;
+            public string Slot2;
+            public string Slot3;
+            public string Slot4;
+            public string Slot5;
         }
 
 
@@ -51,19 +48,18 @@ namespace AdventureGame
 
         public static void userInput(MurderItems[] MurderCards)
         {
-            //Setting up commands
-            Commands[] command = new Commands[1];
-            command[0].ASK = "ask";
-            command[0].EXAMINE = "examine";
-            command[0].GUESS = "guess";
-            command[0].INVENTORY = "inventory";
-            command[0].OPEN = "open";
-            command[0].GOTO = "goto";
+            PlayerInventory[] Inventory = new PlayerInventory[1];
+            Inventory[0].Slot1 = "Empty";
+            Inventory[0].Slot2 = "Empty";
+            Inventory[0].Slot3 = "Empty";
+            Inventory[0].Slot4 = "Empty";
+            Inventory[0].Slot5 = "Empty";
 
 
             bool loop = true;
             while (loop == true)
             {
+                Console.Write("Please enter what you want to do: ");
                 string userInput = Console.ReadLine();
                 string[] userArray = userInput.Split(' ');
                 int count = 0;
@@ -75,9 +71,21 @@ namespace AdventureGame
                 {
                     MovingRoom(userArray, MurderCards);
                 }
-                if (userArray[0] == "exit")
+                else if(userArray[0] == "inventory")
+                {
+                    Console.WriteLine(Inventory[0].Slot1);
+                    Console.WriteLine(Inventory[0].Slot2);
+                    Console.WriteLine(Inventory[0].Slot3);
+                    Console.WriteLine(Inventory[0].Slot4);
+                    Console.WriteLine(Inventory[0].Slot5);
+                }
+                else if (userArray[0] == "exit")
                 {
                     Environment.Exit(0);
+                }
+                else
+                {
+                    Console.Write("Unknown command, please try again: ");
                 }
             }
         }
