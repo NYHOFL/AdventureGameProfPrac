@@ -24,8 +24,8 @@ namespace AdventureGame
             MurderItems[] MurderCards = new MurderItems[1];
             string currentRoom = "Outside";
             string[] InnocentCharacter = new string[6];
-            string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Alfred Gray" };
-            string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Suzuki Swift", "Spanner", "Poison" };
+            string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Alfred Gray", "Anthony Mellon" };
+            string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Spanner", "Poison" };
             string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library", "Dining", "Hall", "Study" };
 
             //Randomising the murderer, weapon and room
@@ -34,6 +34,10 @@ namespace AdventureGame
                 MurderCards[i].murderer = suspectArray[rand.Next(0, 5)];
                 MurderCards[i].murderWeapon = weaponArray[rand.Next(0, 5)];
                 MurderCards[i].murderRoom = roomArray[rand.Next(0, 5)];
+                if (MurderCards[i].murderer == "Anthony Mellon")
+                {
+                    MurderCards[i].murderWeapon = "2015 Suzuki Swift";
+                }
             }
 
             //error checking for establishing NPCS that are not the murderer
