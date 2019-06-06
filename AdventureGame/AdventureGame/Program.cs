@@ -27,12 +27,13 @@ namespace AdventureGame
         }
         public static void Main()
         {
+            
             //Setting up variables and arrays
             Random rand = new Random();
             MurderItems[] MurderCards = new MurderItems[1];
             string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Alfred Gray" };
             string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Suzuki Swift", "Spanner", "Poison" };
-            string[] roomArray = { "Kitchen", "Ballroom", "Billiard Room", "Library", "Cellar", "Dining Room", "Hall", "Study" };
+            string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library",  "Dining", "Hall", "Study" };
 
             for (int i = 0; i < MurderCards.Length; i++)
             {
@@ -52,11 +53,16 @@ namespace AdventureGame
             Inventory[0].Slot4 = "Empty";
             Inventory[0].Slot5 = "Empty";
 
+
+            Console.WriteLine(MurderCards[0].murderRoom);
             bool loop = true;
             while (loop == true)
             {
                 Console.Write("Please enter what you want to do: ");
+                Console.ForegroundColor = ConsoleColor.Green;
                 string userInput = Console.ReadLine();
+                Console.WriteLine("***************************************************************************************");
+                Console.ForegroundColor = ConsoleColor.White;
                 string[] userArray = userInput.Split(' ');
 
                 //GoTo Command
@@ -78,7 +84,10 @@ namespace AdventureGame
                 //Exit Command
                 else if (userArray[0] == "exit")
                 {
+                    Console.WriteLine("You failed to solve the case. You disgrace your academy and are sent back in shame.");
+                    Console.ReadLine();
                     Environment.Exit(0);
+                    
                 }
 
                 //Error Checking
@@ -94,14 +103,28 @@ namespace AdventureGame
             if ((userArray.Contains("Ballroom"))&&((Inventory[0].Slot1 == "Ballroom Key")||(Inventory[0].Slot2 == "Ballroom Key") || (Inventory[0].Slot3 == "Ballroom Key") || (Inventory[0].Slot4 == "Ballroom Key") || (Inventory[0].Slot5 == "Ballroom Key")))
             {
                 Console.WriteLine("You have the Ballroom key, collected from one of the suspects.");
+                if(MurderCards[0].murderRoom == "Ballroom")
+                {
+                    Console.WriteLine("You enter the room where the murdered suspect lies");
+                }
+                else { 
                 Console.WriteLine("You enter the ballroom, the room echos with the conversations of distraught guests. No body can be seen.");
+                }
                 Console.ReadLine();
             }
             
             //Entering Dining Room - Not murder room
             else if (userArray.Contains("Dining"))
             {
-                Console.WriteLine("You enter the Dining room, You are dissappointed. No body can be seen");
+               
+                if (MurderCards[0].murderRoom == "Dining")
+                {
+                    Console.WriteLine("You enter the room where the murdered suspect lies");
+                }
+                else
+                {
+                    Console.WriteLine("You enter the Dining room, You are dissappointed. No corpse can be seen");
+                }
                 Console.WriteLine("There is a man standing in the corner, frightened. You ask him if he knows anything. He replies 'I'm Sorry I didn't see anything, but I may of heard something coming from the Ballroom'");
                 Console.WriteLine("You thank him, and he gives you the key to the Ballroom.");
                 Inventory[0].Slot1 = "Ballroom Key";
@@ -110,15 +133,29 @@ namespace AdventureGame
             //Entering Billiard Room - Not murder room
             else if (userArray.Contains("Billiard"))
             {
-                Console.WriteLine("You enter the Billiard room, the room is dimly lit. No body can be seen");
-                Console.ReadLine();
+                if (MurderCards[0].murderRoom == "Billiard")
+                {
+                    Console.WriteLine("You enter the room where the murdered suspect lies");
+                }
+                else
+                {
+                    Console.WriteLine("You enter the Billiard room, the room is dimly lit. No body can be seen");
+                }
 
             }
 
             //Entering Kitchen Room - Not murder room
             else if (userArray.Contains("Kitchen"))
             {
-                Console.WriteLine("You enter the kitchen, the smell of the recently cooked turkey dinner looms in the air. No body can be seen.");
+                if (MurderCards[0].murderRoom == "Kitchen")
+                {
+                    Console.WriteLine("You enter the room where the murdered suspect lies");
+                }
+                else
+                {
+                    Console.WriteLine("You enter the kitchen, the smell of the recently cooked turkey dinner looms in the air. No body can be seen.");
+                }
+                
                 Console.ReadLine();
 
             }
