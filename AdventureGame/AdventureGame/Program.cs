@@ -25,10 +25,7 @@ namespace AdventureGame
             public string Slot4;
             public string Slot5;
         }
-
-
-
-            public static void Main()
+        public static void Main()
         {
             //Setting up variables and arrays
             Random rand = new Random();
@@ -55,23 +52,21 @@ namespace AdventureGame
             Inventory[0].Slot4 = "Empty";
             Inventory[0].Slot5 = "Empty";
 
-
             bool loop = true;
             while (loop == true)
             {
                 Console.Write("Please enter what you want to do: ");
                 string userInput = Console.ReadLine();
                 string[] userArray = userInput.Split(' ');
-                int count = 0;
-                foreach (string item in userArray)
-                {
-                    count++;
-                }
+
+                //GoTo Command
                 if (userArray[0] == "goto")
                 {
-                    MovingRoom(userArray, MurderCards);
+                    MovingRoom(userArray, MurderCards, Inventory);
                 }
-                else if(userArray[0] == "inventory")
+
+                //Inventory Command
+                else if (userArray[0] == "inventory")
                 {
                     Console.WriteLine(Inventory[0].Slot1);
                     Console.WriteLine(Inventory[0].Slot2);
@@ -79,59 +74,84 @@ namespace AdventureGame
                     Console.WriteLine(Inventory[0].Slot4);
                     Console.WriteLine(Inventory[0].Slot5);
                 }
+
+                //Exit Command
                 else if (userArray[0] == "exit")
                 {
                     Environment.Exit(0);
                 }
+
+                //Error Checking
                 else
                 {
                     Console.Write("Unknown command, please try again: ");
                 }
             }
         }
-        public static void MovingRoom(string[] userArray, MurderItems[] MurderCards)
+        public static void MovingRoom(string[] userArray, MurderItems[] MurderCards, PlayerInventory[] Inventory)
         {
-            if (userArray.Contains("Ballroom"))
+            //Entering ballroom - Not murder room
+            if ((userArray.Contains("Ballroom"))&&((Inventory[0].Slot1 == "Ballroom Key")||(Inventory[0].Slot2 == "Ballroom Key") || (Inventory[0].Slot3 == "Ballroom Key") || (Inventory[0].Slot4 == "Ballroom Key") || (Inventory[0].Slot5 == "Ballroom Key")))
             {
-                Console.WriteLine("Ballroom");
+                Console.WriteLine("You have the Ballroom key, collected from one of the suspects.");
+                Console.WriteLine("You enter the ballroom, the room echos with the conversations of distraught guests. No body can be seen.");
                 Console.ReadLine();
             }
-
             
-                if (userArray.Contains("Dining"))
-                {
-                    Console.WriteLine("You enter a Conservatory, You are dissappointed");
-                    Console.ReadLine();
-                }
-                if (userArray.Contains("Billiard"))
-                {
-                    Console.WriteLine("The Billiard Room smells like chalk");
-                    Console.ReadLine();
-
-                }
-            if (userArray.Contains("Cellar"))
+            //Entering Dining Room - Not murder room
+            else if (userArray.Contains("Dining"))
             {
+                Console.WriteLine("You enter the Dining room, You are dissappointed. No body can be seen");
+                Console.WriteLine("There is a man standing in the corner, frightened. You ask him if he knows anything. He replies 'I'm Sorry I didn't see anything, but I may of heard something coming from the Ballroom'");
+                Console.WriteLine("You thank him, and he gives you the key to the Ballroom.");
+                Inventory[0].Slot1 = "Ballroom Key";
+            }
+
+            //Entering Billiard Room - Not murder room
+            else if (userArray.Contains("Billiard"))
+            {
+                Console.WriteLine("You enter the Billiard room, the room is dimly lit. No body can be seen");
+                Console.ReadLine();
+
+            }
+
+            //Entering Kitchen Room - Not murder room
+            else if (userArray.Contains("Kitchen"))
+            {
+                Console.WriteLine("You enter the kitchen, the smell of the recently cooked turkey dinner looms in the air. No body can be seen.");
+                Console.ReadLine();
+
+            }
+
+            //Entering Cellar Room - Guessing Room
+            else if (userArray.Contains("Cellar"))
+            {
+                Console.WriteLine("You enter the Cellar and find the cheif investagator. You interupt his conversation confinatly saying you know how the murder went down. ");
                 Guessing(MurderCards);
 
-            }        
+            }
+            else
+            {
+                Console.WriteLine("You dont have the key to enter that room");
+            }
         }
 
         public static void Guessing(MurderItems[] MurderCards)
         {
             int points = 0;
-            Console.Write("Please enter who you think the murderer was: ");
+            Console.Write("He asks who you think the murderer was, you reply: ");
             string userGuess = Console.ReadLine();
             if (MurderCards[0].murderer == userGuess)
             {
                 points++;
             }
-            Console.Write("Please enter what weapon you think was used: ");
+            Console.Write("He asks what weapon you think you think was used: ");
             userGuess = Console.ReadLine();
             if (MurderCards[0].murderWeapon == userGuess)
             {
                 points++;
             }
-            Console.Write("Please enter what room the murder was commited in: ");
+            Console.Write("He asks what room you think you think the murder was commited in: ");
             userGuess = Console.ReadLine();
             if (MurderCards[0].murderRoom == userGuess)
             {
