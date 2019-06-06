@@ -60,9 +60,11 @@ namespace AdventureGame
 
         public static void userInput(MurderItems[] MurderCards, string[] Inventory, string[] InnocentCharacter, string currentRoom)
         {
+            int temp;
             Console.WriteLine(MurderCards[0].murderRoom);
             bool loop = true;
             while (loop == true)
+            
             {
                 Console.Write("Please enter what you want to do: ");
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -81,8 +83,35 @@ namespace AdventureGame
                 {
                     for (int i = 0; i < Inventory.Length; i++)
                     {
-                        Console.WriteLine("Slot " + i + ": " + Inventory[i]);
+                        Console.WriteLine($"Slot {i + 1} : {Inventory[i]}");
                     }
+                    Console.WriteLine("What slot would you like to look at?");
+                    temp = Convert.ToInt32(Console.ReadLine());
+
+                    switch (temp)
+                    {
+                        case 1:
+                            Console.WriteLine("Opening slot 1");
+                            break;
+
+                        case 2:
+                            Console.WriteLine("Opening slot 2");
+                            break;
+
+                        case 3:
+                            Console.WriteLine("Opening Slot 3");
+                            break;
+
+                        case 4:
+                            Console.WriteLine("Opening Slot 4");
+                            break;
+
+                        case 5:
+                            Console.WriteLine("Opening Slot 5");
+                            break;
+                    }
+
+                    Console.ReadLine();
 
                 }
 
