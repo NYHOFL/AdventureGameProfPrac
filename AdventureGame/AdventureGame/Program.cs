@@ -151,7 +151,7 @@ namespace AdventureGame
         public static void Hints(ref TrackedItems MurderCards, string[] InnocentCharacter)
         {
             if(MurderCards.currentRoom.ToLower() == "dining")
-            {
+            {  
                 Console.WriteLine($"Try asking {InnocentCharacter[0]} what happened.");
             }
         }
@@ -161,7 +161,6 @@ namespace AdventureGame
             StreamReader sr = new StreamReader(@"map.txt");
             while (!sr.EndOfStream)
             {
-
                 Console.WriteLine(sr.ReadLine());
             }
             Console.WriteLine("Finished?");
