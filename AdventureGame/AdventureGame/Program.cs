@@ -26,7 +26,7 @@ namespace AdventureGame
             string[] InnocentCharacter = new string[6];
             string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Anthony Mellon" };
             string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Spanner", "Poison" };
-            string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library", "Dining", "Hall", "Study" };
+            string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library", "Dining", "Hall", "Study","Lounge" };
 
             //Randomising the murderer, weapon and room
             MurderCards.murderer = suspectArray[rand.Next(0, 5)];
@@ -54,11 +54,11 @@ namespace AdventureGame
                     loop = false;
                 }
             }
-            userInput(MurderCards, Inventory, InnocentCharacter);
+            userInput(ref MurderCards, Inventory, InnocentCharacter);
         }
 
         //Constantly looping checking for users input
-        public static void userInput(TrackedItems MurderCards, string[] Inventory, string[] InnocentCharacter)
+        public static void userInput(ref TrackedItems MurderCards, string[] Inventory, string[] InnocentCharacter)
         {
             Console.WriteLine(MurderCards.murderRoom);
             Console.WriteLine("Murder Room: " + MurderCards.murderRoom);
@@ -75,7 +75,7 @@ namespace AdventureGame
                 //GoTo Command
                 if (userArray[0].ToLower() == "goto")
                 {
-                    MovingRoom(userArray, MurderCards, Inventory, InnocentCharacter);
+                    MovingRoom(userArray, ref MurderCards, Inventory, InnocentCharacter);
                 }
 
                 //Inventory Command
@@ -95,10 +95,16 @@ namespace AdventureGame
                     loop = false;
                 }
 
+                //Map command
+                else if (userArray[0].ToLower() == "map")
+                {
+                    Map(ref MurderCards);
+                }
+
                 //Ask command
                 else if (userArray[0].ToLower() == "ask")
                 {
-                    Asking(MurderCards, Inventory, InnocentCharacter, userArray);
+                    Asking(ref MurderCards, Inventory, InnocentCharacter, userArray);
                 }
 
                 //Examine command
@@ -110,6 +116,12 @@ namespace AdventureGame
                         Console.WriteLine("There is a large cupboard on the far side of the kitchen. The bench tops are covered in half cleaned cuttlery and cookware.");
                     }
                 }
+                //Hint command
+                else if (userArray[0].ToLower() == "hint")
+                {
+                    Hints(ref MurderCards, InnocentCharacter);
+                }
+
                 //Error Checking
                 else
                 {
@@ -117,7 +129,7 @@ namespace AdventureGame
                 }
             }
         }
-        public static void Asking(TrackedItems MurderCards, string[] Inventory, string[] InnocentCharacter, string[] userArray)
+        public static void Asking(ref TrackedItems MurderCards, string[] Inventory, string[] InnocentCharacter, string[] userArray)
         {
             if (MurderCards.currentRoom == "dining")
             {
@@ -136,8 +148,27 @@ namespace AdventureGame
             }
         }
 
+        public static void Hints(ref TrackedItems MurderCards, string[] InnocentCharacter)
+        {
+            if(MurderCards.currentRoom.ToLower() == "dining")
+            {
+                Console.WriteLine($"Try asking {InnocentCharacter[0]} what happened.");
+            }
+        }
+        
+        public static void Map(ref TrackedItems MurderCards)
+        {
+            StreamReader sr = new StreamReader(@"map.txt");
+            while (!sr.EndOfStream)
+            {
+                Console.WriteLine(sr.ReadLine());
+            }
+            Console.WriteLine("Finished?");
+            Console.ReadLine();
+        }
+
         //Activates when the user is using the moving command.
-        public static void MovingRoom(string[] userArray, TrackedItems MurderCards, string[] Inventory, string[] InnocentCharacter)
+        public static void MovingRoom(string[] userArray,ref TrackedItems MurderCards, string[] Inventory, string[] InnocentCharacter)
         {
 
             Console.WriteLine(MurderCards.currentRoom);
@@ -184,7 +215,7 @@ namespace AdventureGame
         }
 
         //For when the user enters the cellar and is ready to guess
-        public static void Guessing(TrackedItems MurderCards)
+        public static void Guessing(ref TrackedItems MurderCards)
         {
             int points = 0;
             Console.Write("He asks who you think the murderer was, you reply: ");
