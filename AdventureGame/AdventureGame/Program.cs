@@ -161,6 +161,7 @@ namespace AdventureGame
             StreamReader sr = new StreamReader(@"map.txt");
             while (!sr.EndOfStream)
             {
+
                 Console.WriteLine(sr.ReadLine());
             }
             Console.WriteLine("Finished?");
