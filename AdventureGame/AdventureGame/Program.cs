@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading;
 using System.IO;
 
+
+
 namespace AdventureGame
 {
     class Program
@@ -25,37 +27,32 @@ namespace AdventureGame
             string[] Inventory = { "Empty", "Empty", "Empty", "Empty", "Empty" };
             Random rand = new Random();
             TrackedItems Cards = new TrackedItems();
-            string[] InnocentCharacter = new string[6];
-            string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard", "Anthony Mellon" };
-            string[] weaponArray = { "Candlestick", "Dagger", "Lead Pipe", "Revolver", "Spanner", "Poison" };
+            string[] InnocentCharacter = new string[4];
+            string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard"};
+            string[] weaponArray = { "Candlestick", "Dagger", "Cue", "Revolver", "Spanner", "Poison" };
             string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library", "Dining", "Hall", "Study","Lounge" };
 
             //Randomising the murderer, weapon and room
             Cards.murderer = suspectArray[rand.Next(0, 5)];
-            Cards.murderWeapon = weaponArray[rand.Next(0, 5)];
             Cards.murderRoom = roomArray[rand.Next(0, 5)];
             Cards.currentRoom = "Outside";
             Cards.studyLock = "locked";
             Cards.ballroomLock = "locked";
-            if (Cards.murderer == "Anthony Mellon")
-            {
-                Cards.murderWeapon = "2015 Suzuki Swift";
-            }
-
 
             //error checking for establishing NPCS that are not the murderer
             Console.WriteLine("Murderer: " + Cards.murderer);
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i < 4; i++)
             {
                 bool loop = true;
                 while (loop == true)
                 {
                     if (suspectArray[i] != Cards.murderer)
                     {
-                        if (suspectArray[i] != Cards.murderer) { 
                         InnocentCharacter[i] = suspectArray[i];
-                        //Console.WriteLine("Innocent: " + InnocentCharacter[i]);
-                        }
+                    }
+                    else
+                    {
+                        InnocentCharacter[i] = "Frank West";
                     }
                     loop = false;
                 }
@@ -113,11 +110,7 @@ namespace AdventureGame
                 //Examine command
                 else if (userArray[0].ToLower() == "examine")
                 {
-                    Console.WriteLine(Cards.currentRoom);
-                    if (Cards.currentRoom.ToLower() == "kitchen")
-                    {
-                        Console.WriteLine("There is a large cupboard on the far side of the kitchen. The bench tops are covered in half cleaned cuttlery and cookware.");
-                    }
+                    Examine(ref Cards, Inventory);
                 }
                 //Hint command
                 else if (userArray[0].ToLower() == "hint")
@@ -132,6 +125,7 @@ namespace AdventureGame
                 }
             }
         }
+        //If there are NPCs in the current room the user can ask questions
         public static void Asking(ref TrackedItems Cards, string[] Inventory, string[] InnocentCharacter, string[] userArray)
         {
             if (Cards.currentRoom == "dining")
@@ -149,8 +143,39 @@ namespace AdventureGame
                     Console.WriteLine($"{InnocentCharacter[0]} is confused by that sentence and asks you to repeat it.");
                 }
             }
+            if (Cards.currentRoom == "lounge")
+            {
+                if (userArray.Contains("happened"))
+                {
+                    Console.WriteLine("We don't know what happened, it all happened so fast. We were in the dining room getting food when it happened.");
+                }
+                else
+                {
+                    Console.WriteLine($"{InnocentCharacter[1]} and {InnocentCharacter[2]}  are confused by that sentence and ask you to repeat it.");
+                }
+            }
         }
+        //Examing the body
+        public static void ExamineBody(ref TrackedItems Cards)
+        {
+            if ((Cards.murderWeapon.ToLower() == "poison")&& (Cards.currentRoom == "kitchen"))
+            {
+                Console.WriteLine("The body is lying motionless on the floor, upon further inspection. A glass had been dropped as the victim tried to drink");
+                Console.WriteLine("It was very similiar to a recent murder you solved, invlocing Arsenic. A substance found in rat poison and weed killer. You conclude that the killer must of used Poison");
+            }
 
+        }
+        //Examing the rooms method
+        public static void Examine(ref TrackedItems Cards, string[] Inventory)
+        {
+            if(Cards.currentRoom.ToLower() == "kitchen")
+            {
+                Console.WriteLine("You examine the room, moving tables and opening cupboards, when it seems like the room is a dead end, you find a key.");
+                Console.WriteLine("The key is engraved with a giant 'S'. You conclude this can only mean this key is meant for the study room.");
+                Inventory[1] = "Study Key";
+            }
+        }
+        //Shows a hint for the current room if there is one
         public static void Hints(ref TrackedItems Cards, string[] InnocentCharacter)
         {
             if(Cards.currentRoom.ToLower() == "dining")
@@ -158,7 +183,7 @@ namespace AdventureGame
                 Console.WriteLine($"Try asking {InnocentCharacter[0]} what happened.");
             }
         }
-        
+        //Displays the map when the command is triggered
         public static void Map(ref TrackedItems Cards)
         {
             StreamReader sr = new StreamReader(@"map.txt");
@@ -171,18 +196,24 @@ namespace AdventureGame
             Console.WriteLine("Finished?");
             Console.ReadLine();
         }
-
         //Activates when the user is using the moving command.
         public static void MovingRoom(string[] userArray, ref TrackedItems Cards, string[] Inventory, string[] InnocentCharacter)
         {
             if (userArray.Contains("kitchen"))
             {
                 Cards.currentRoom = "kitchen";
-                Console.WriteLine(Cards.currentRoom);
+                if (Cards.murderRoom.ToLower() == "kitchen")
+                {
+                    Cards.murderWeapon = "Poison";
+                    Console.WriteLine("You enter the kitchen, in the corner is the victim, mouth frothing, eyes blood red.");
+                }
+                else
+                {
                 Console.WriteLine("Inside the marble topped kitchen you find many stainless steel pots and pans. The sink is overflowing with dishes from last nights meal.");
+                }
             }
 
-            //Entering ballroom - Not murder room
+            //Entering ballroom
             else if (userArray.Contains("ballroom"))
             {
                 if (Cards.ballroomLock.ToLower() == "locked")
@@ -193,6 +224,7 @@ namespace AdventureGame
                         Console.WriteLine("You have the Ballroom key, collected from one of the suspects.");
                         if (Cards.murderRoom.ToLower() == "ballroom")
                         {
+                            Cards.murderWeapon = "Lead Pipe";
                             Console.WriteLine("You enter the room where the murdered victim lies");
                         }
                         else
@@ -219,6 +251,7 @@ namespace AdventureGame
                 }
             }
 
+            //Entering study
             else if (userArray.Contains("study"))
             {
                 if (Cards.studyLock.ToLower() == "locked")
@@ -229,6 +262,7 @@ namespace AdventureGame
                         Console.WriteLine("You have the Study key");
                         if (Cards.murderRoom.ToLower() == "study")
                         {
+                            Cards.murderWeapon = "Revolver";
                             Console.WriteLine("You enter the room where the murdered victim lies");
                         }
                         else
@@ -255,24 +289,70 @@ namespace AdventureGame
                 }
             }
 
+            //Entering Lounge
+            else if (userArray.Contains("lounge"))
+            {
+                Cards.currentRoom = "lounge";
+                if (Cards.murderRoom == "lounge")
+                {
+                    Cards.murderWeapon = "Dagger";
+                    Console.WriteLine("You enter the room where the murdered victim lies");
+                    Console.WriteLine($"You enter the lounge, {InnocentCharacter[2]} and {InnocentCharacter[3]} are sitting on the couch. Comforting each other.");
+                }
+                else
+                {
+                    Console.WriteLine($"You enter the lounge, {InnocentCharacter[2]} and {InnocentCharacter[3]} are sitting on the couch. Comforting each other.");
+                }
+            }
 
-            //Entering Dining Room - Not murder room
+            //Entering Library
+            else if (userArray.Contains("library"))
+            {
+                Cards.currentRoom = "library";
+                if (Cards.murderRoom == "library")
+                {
+                    Cards.murderWeapon = "Candlestick";
+                    Console.WriteLine("You enter the library and a body is lying down");
+                }
+                else
+                {
+                    Console.WriteLine("You enter the library, bookshelves as tall as the ceiling can be seen.");
+                }
+            }
+
+            //Entering Dining Room 
             else if (userArray.Contains("dining"))
             {
                 Cards.currentRoom = "dining";
                 if (Cards.murderRoom == "dining")
                 {
+                    Cards.murderWeapon = "Fork";
                     Console.WriteLine("You enter the room where the murdered victim lies");
                 }
                 else
                 {
                     Console.WriteLine("You enter the Dining room, You are disappointed. No corpse can be seen");
+                    Console.WriteLine($"You enter the dining room, {InnocentCharacter[0]} is standing in the corner.");
                 }
                 //Console.WriteLine($"You enter the dining room, {InnocentCharacter[0]} is standing in the corner, distraught.");
                 Inventory[0] = "Ballroom Key";
             }
+            
+            //Entering billiard room
+            else if(userArray.Contains("billiard"))
+            {
+                Cards.currentRoom = "billiard";
+                if (Cards.murderRoom == "billiard")
+                {
+                    Cards.murderWeapon = "Pool Cue";
+                    Console.WriteLine("Upon entering the Billiard room the smell hits you immediatly, this was a bludgening. The vicim lies on top of the pool table");
+                }
+                else
+                {
+                    Console.WriteLine("You enter the billiard room, the room smells of recently lit cigars, and expensive whiskey.");
+                }
+            }
         }
-
         //For when the user enters the cellar and is ready to guess
         public static void Guessing(ref TrackedItems Cards)
         {
