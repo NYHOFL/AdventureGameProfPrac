@@ -1,0 +1,32 @@
+public static void Menu()
+        {
+            int menu;
+            Console.WriteLine("Play Game (1)\nRules (2)\nOptions (3)\nExit (4)");
+            menu = Convert.ToInt32(Console.ReadLine());
+
+
+            switch (menu)
+            {
+                case 1:
+                    Console.WriteLine("Welcome to #############");
+                    Thread.Sleep(2000);
+                    //link game method
+                    break;
+                case 2:
+                    Console.WriteLine("Rules: ");
+                    Console.WriteLine();
+                    Console.ReadLine();
+                    //Link Rules or type out
+                    break;
+                case 3:
+                    Console.WriteLine("Options:");
+                    Console.ReadLine();
+                    break;
+                case 4:
+                    break;
+                default:
+                    Console.WriteLine("Incorrect Input");
+                    break;
+            }
+
+        }
