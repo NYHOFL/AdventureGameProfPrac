@@ -148,7 +148,7 @@ namespace AdventureGame
             {
                 if (userArray.Contains("happened"))
                 {
-                    Console.WriteLine("We don't know what happened, it all happened so fast. We were in the dining room getting food when it happened.");
+                    Console.WriteLine("We don't know, it all happened so fast. We were in the dining room getting food when it happened.");
                 }
                 else
                 {
@@ -162,7 +162,7 @@ namespace AdventureGame
             if ((Cards.murderWeapon.ToLower() == "poison")&& (Cards.currentRoom == "kitchen"))
             {
                 Console.WriteLine("The body is lying motionless on the floor, upon further inspection. A glass had been dropped as the victim tried to drink");
-                Console.WriteLine("It was very similiar to a recent murder you solved, invlocing Arsenic. A substance found in rat poison and weed killer. You conclude that the killer must of used Poison");
+                Console.WriteLine("It was very similiar to a recent murder you solved, involving Arsenic. Arsenic is a substance found in rat poison and weed killer. You conclude that the victim must have been poisened.");
             }
 
         }
@@ -171,7 +171,8 @@ namespace AdventureGame
         {
             if(Cards.currentRoom.ToLower() == "kitchen")
             {
-                Console.WriteLine("You examine the room, moving tables and opening cupboards, when it seems like the room is a dead end, you find a key.");
+                Console.WriteLine("You examine the room, moving tables and searching cupboards. When it seems likely that the room is a dead end, you find a key.");
+                Thread.Sleep(200);
                 Console.WriteLine("The key is engraved with a giant 'S'. You conclude this can only mean this key is meant for the study room.");
                 Inventory[1] = "Study Key";
             }
@@ -179,9 +180,13 @@ namespace AdventureGame
         //Shows a hint for the current room if there is one
         public static void Hints(ref TrackedItems Cards, string[] InnocentCharacter)
         {
-            if(Cards.currentRoom.ToLower() == "dining")
-            {  
+            if (Cards.currentRoom.ToLower() == "dining")
+            {
                 Console.WriteLine($"Try asking {InnocentCharacter[0]} what happened.");
+            }
+            if (Cards.currentRoom.ToLower() == "ballroom")
+            {
+                Console.WriteLine("You did overhear that a gentleman in the lounge has a set of keys for the mansion's many rooms.");
             }
         }
         //Displays the map when the command is triggered
@@ -206,11 +211,11 @@ namespace AdventureGame
                 if (Cards.murderRoom.ToLower() == "kitchen")
                 {
                     Cards.murderWeapon = "Poison";
-                    Console.WriteLine("You enter the kitchen, in the corner is the victim, mouth frothing, eyes blood red.");
+                    Console.WriteLine("You enter the kitchen, in the corner is the victim, foam and bile spilling from their mouth, eyes bloodred, skin purple. It must've been a horrible way to die.");
                 }
                 else
                 {
-                Console.WriteLine("Inside the marble topped kitchen you find many stainless steel pots and pans. The sink is overflowing with dishes from last nights meal.");
+                Console.WriteLine("Inside the marble kitchen you find many stainless steel pots, pans, trays and other equipment. The sink is overflowing with cutlery from last nights meal.");
                 }
             }
 
@@ -235,7 +240,7 @@ namespace AdventureGame
                     }
                     else
                     {
-                        Console.WriteLine("You try to open the ballroom door, but the door is locked");
+                        Console.WriteLine("You try to open the ballroom door, but the door is locked.");
                     }
                 }
                 else
