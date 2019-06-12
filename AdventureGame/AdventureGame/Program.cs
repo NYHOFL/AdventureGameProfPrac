@@ -22,53 +22,69 @@ namespace AdventureGame
             public string studyLock;
         }
 
-        public static void Menu()
+        public static void Menu(ref TrackedItems Cards, string[] Inventory, string[] InnocentCharacter)
         {
-
-            
-        }
-
-
-
-
-        public static void Main()
-        {
-            //Setting up variables and arrays
-            string[] Inventory = { "Empty", "Empty", "Empty", "Empty", "Empty" };
-            Random rand = new Random();
-            TrackedItems Cards = new TrackedItems();
-            string[] InnocentCharacter = new string[4];
-            string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard"};
-            string[] weaponArray = { "Candlestick", "Dagger", "Cue", "Revolver", "Spanner", "Poison" };
-            string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library", "Dining", "Hall", "Study","Lounge" };
-
-            //Randomising the murderer, weapon and room
-            Cards.murderer = suspectArray[rand.Next(0, 5)];
-            Cards.murderRoom = roomArray[rand.Next(0, 5)];
-            Cards.currentRoom = "Outside";
-            Cards.studyLock = "locked";
-            Cards.ballroomLock = "locked";
-
-            //error checking for establishing NPCS that are not the murderer
-            Console.WriteLine("Murderer: " + Cards.murderer);
-            for (int i = 0; i < 4; i++)
+            int menu;
+            bool menuOpen = true;
+            while (menuOpen == true)
             {
-                bool loop = true;
-                while (loop == true)
+                Console.WriteLine("Not Cluedo".PadLeft(Console.WindowWidth / 2));
+                Console.WriteLine();
+                Console.WriteLine($"Main Menu\n".PadLeft(Console.WindowWidth / 2));
+                Console.WriteLine();
+                Console.WriteLine("Play Game (1)\nRules and Commands (2)\nOptions (3)\nExit (4)");
+                menu = Convert.ToInt32(Console.ReadLine());
                 {
-                    if (suspectArray[i] != Cards.murderer)
+                    switch (menu) // while loop?
                     {
-                        InnocentCharacter[i] = suspectArray[i];
+                        case 1:
+
+                            Console.Clear();
+                            Console.WriteLine("Welcome to Not Cluedo");
+
+                            Thread.Sleep(2000);
+
+                            Console.Clear();
+                            userInput(ref Cards, Inventory, InnocentCharacter);
+                            //call method of game
+                            break;
+                        case 2:
+                            Console.Clear();
+                            Console.WriteLine("Rules and Commands");
+                            Console.WriteLine("Welcome to Not Cludeo! In this game you will try to guess the murderer in the Not Cludeo mansion. You will need to identify the room they were killed in, the item used to kill them and the murderer. Good Luck!");
+                            Thread.Sleep(5000);
+                            Console.WriteLine($"\nThe following are some helpful commands you will need to use to navigate and interact with the cluedeo mansion.");
+                            Thread.Sleep(2000);
+                            Console.WriteLine($"\nGOTO \nThis command allows you to change rooms and GOTO the room you want. \nINVENTORY \nThis command will open your inventory, showing you what you currently have. \nMAP \nThis command opens the map and shows the player where they are in the Not Cluedo mansion. \nEXIT \nThis will forcibly exit the game and not save anything. \nASK \nThis allows the players to ask the characters questions such as 'what happened' \nEXAMINE \nAllows the player to examine items in the room. \nHELP \nAllows the player to ask for help from the game and get a hint.");
+                            Thread.Sleep(1000);
+                            Console.WriteLine($"\nPress the enter key to go back to the main menu");
+                            Console.ReadLine();
+                            Console.Clear();
+                            //Link Rules or type out then call menu
+                            break;
+                        case 3:
+                            Console.WriteLine("Options:");
+                            Console.ReadLine();
+                            Console.Clear();
+                            //let them edit the options then call menu
+                            break;
+                        case 4:
+                            menuOpen = false;
+                            break;
+                        default:
+                            Console.WriteLine("Incorrect Input");
+                            //call menu
+                            break;
                     }
-                    else
-                    {
-                        InnocentCharacter[i] = "Frank West";
-                    }
-                    loop = false;
                 }
             }
-            userInput(ref Cards, Inventory, InnocentCharacter);
+
         }
+
+
+
+
+       
 
         //Constantly looping checking for users input
         public static void userInput(ref TrackedItems Cards, string[] Inventory, string[] InnocentCharacter)
@@ -409,6 +425,46 @@ namespace AdventureGame
             {
                 Console.WriteLine("You lost");
             }
+        }
+
+        public static void Main()
+        {
+            //Setting up variables and arrays
+            string[] Inventory = { "Empty", "Empty", "Empty", "Empty", "Empty" };
+            Random rand = new Random();
+            TrackedItems Cards = new TrackedItems();
+            string[] InnocentCharacter = new string[4];
+            string[] suspectArray = { "Peter Plum", "Miss Scarlet", "Miss White", "Mr. Green", "Colonel Mustard" };
+            string[] weaponArray = { "Candlestick", "Dagger", "Cue", "Revolver", "Spanner", "Poison" };
+            string[] roomArray = { "Kitchen", "Ballroom", "Billiard", "Library", "Dining", "Hall", "Study", "Lounge" };
+
+            //Randomising the murderer, weapon and room
+            Cards.murderer = suspectArray[rand.Next(0, 5)];
+            Cards.murderRoom = roomArray[rand.Next(0, 5)];
+            Cards.currentRoom = "Outside";
+            Cards.studyLock = "locked";
+            Cards.ballroomLock = "locked";
+
+            //error checking for establishing NPCS that are not the murderer
+            Console.WriteLine("Murderer: " + Cards.murderer);
+            for (int i = 0; i < 4; i++)
+            {
+                bool loop = true;
+                while (loop == true)
+                {
+                    if (suspectArray[i] != Cards.murderer)
+                    {
+                        InnocentCharacter[i] = suspectArray[i];
+                    }
+                    else
+                    {
+                        InnocentCharacter[i] = "Frank West";
+                    }
+                    loop = false;
+                }
+            }
+            Menu(ref Cards, Inventory, InnocentCharacter);
+            
         }
     }
 }
