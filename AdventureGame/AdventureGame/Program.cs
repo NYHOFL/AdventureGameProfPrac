@@ -21,6 +21,15 @@ namespace AdventureGame
             public string studyLock;
         }
 
+        public static void Menu()
+        {
+
+            
+        }
+
+
+
+
         public static void Main()
         {
             //Setting up variables and arrays
@@ -163,6 +172,10 @@ namespace AdventureGame
                 Console.WriteLine("The body is lying motionless on the floor, upon further inspection. A glass had been dropped as the victim tried to drink");
                 Console.WriteLine("It was very similiar to a recent murder you solved, invlocing Arsenic. A substance found in rat poison and weed killer. You conclude that the killer must of used Poison");
             }
+            else if ((Cards.murderWeapon.ToLower() == "poison") && (Cards.currentRoom == "kitchen"))
+            {
+
+            }
 
         }
         //Examing the rooms method
@@ -258,6 +271,7 @@ namespace AdventureGame
                 {
                     if (Inventory[1] == "Study Key")
                     {
+                        Cards.currentRoom = "study";
                         Cards.studyLock = "unlocked";
                         Console.WriteLine("You have the Study key");
                         if (Cards.murderRoom.ToLower() == "study")
