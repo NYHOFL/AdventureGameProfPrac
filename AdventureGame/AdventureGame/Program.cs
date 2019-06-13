@@ -31,27 +31,25 @@ namespace AdventureGame
                 Console.WriteLine("Not Cluedo".PadLeft(Console.WindowWidth / 2));
                 Console.WriteLine();
                 Console.WriteLine($"Main Menu\n".PadLeft(Console.WindowWidth / 2));
-                Console.WriteLine();
-                Console.WriteLine("Play Game (1)\nRules and Commands (2)\nOptions (3)\nExit (4)");
+                Console.WriteLine("========================================================================================================================");
+                Console.WriteLine("Play Game (1)\n\nRules and Commands (2)\n\nOptions (3)\n\nExit (4)\n");
                 menu = Convert.ToInt32(Console.ReadLine());
                 {
                     switch (menu) // while loop?
                     {
                         case 1:
-
                             Console.Clear();
-                            Console.WriteLine("Welcome to Not Cluedo");
-
-                            Thread.Sleep(2000);
-
+                            Thread.Sleep(1000);
+                            Console.WriteLine("GAME BEGIN");
+                            Thread.Sleep(3000);
                             Console.Clear();
                             userInput(ref Cards, Inventory, InnocentCharacter);
-                            //call method of game
                             break;
+
                         case 2:
                             Console.Clear();
                             Console.WriteLine("Rules and Commands");
-                            Console.WriteLine("Welcome to Not Cludeo! In this game you will try to guess the murderer in the Not Cludeo mansion. You will need to identify the room they were killed in, the item used to kill them and the murderer. Good Luck!");
+                            Console.WriteLine("Welcome to Not Cludeo! In this game you will try to guess the murderer in the Not Cludeo mansion. You will need to identify the room they were killed in, the item used to kill them and the murderer.");
                             Thread.Sleep(5000);
                             Console.WriteLine($"\nThe following are some helpful commands you will need to use to navigate and interact with the cluedeo mansion.");
                             Thread.Sleep(2000);
@@ -63,8 +61,10 @@ namespace AdventureGame
                             //Link Rules or type out then call menu
                             break;
                         case 3:
+                            Console.Clear();
                             Console.WriteLine("Options:");
-                            Console.ReadLine();
+                            Console.WriteLine("There's supposed to be something here");
+                            Thread.Sleep(1000);
                             Console.Clear();
                             //let them edit the options then call menu
                             break;
@@ -89,6 +89,8 @@ namespace AdventureGame
         //Constantly looping checking for users input
         public static void userInput(ref TrackedItems Cards, string[] Inventory, string[] InnocentCharacter)
         {
+            Console.WriteLine("The old mansion creeks as you enter. Marble pillars decorate long white halls. The suspects gather in the basement as you begin your first round of quesitoning. Satisfied with the answers you get, you begin the investigation.");
+            Thread.Sleep(2000);
             bool loop = true;
             while (loop == true)
             {
@@ -446,7 +448,7 @@ namespace AdventureGame
             Cards.ballroomLock = "locked";
 
             //error checking for establishing NPCS that are not the murderer
-            Console.WriteLine("Murderer: " + Cards.murderer);
+            //Console.WriteLine("Murderer: " + Cards.murderer);
             for (int i = 0; i < 4; i++)
             {
                 bool loop = true;
